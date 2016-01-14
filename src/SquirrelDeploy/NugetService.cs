@@ -21,8 +21,21 @@ namespace SquirrelDeploy
             _miscFunctions = miscFunctions;
         }
 
-        public string GeneratePackage(string sourceDir, string projectName, string buildConfiguration)
+        public string GeneratePackage(string sourceDir, string projectName, string appName, string author, 
+            string buildConfiguration, int majorVersion, SquirrelRelease latestRelease)
         {
+            if (appName == null)
+                throw new ArgumentNullException(nameof(appName));
+
+            if (author == null)
+                throw new ArgumentNullException(nameof(author));
+
+            if (buildConfiguration == null)
+                throw new ArgumentNullException(nameof(buildConfiguration));
+
+            if (majorVersion < 0)
+                throw new ArgumentException($"{nameof(majorVersion)} can't be negative" );
+
             if (!Directory.Exists(sourceDir))
                 throw new ArgumentException($"Source directory not found: {sourceDir}");
 
@@ -43,7 +56,7 @@ namespace SquirrelDeploy
 
             var nuspecFilePath = Path.Combine(tempDirName, nuspecFileName);
 
-            WriteNuspecFile(nuspecFilePath, appPath);
+            WriteNuspecFile(nuspecFilePath, appPath, appName, author, majorVersion, latestRelease);
             var nupkgFilePath = PackNuspecFile(nuspecFilePath);
 
             if (nupkgFilePath == null)
@@ -102,15 +115,18 @@ namespace SquirrelDeploy
             return null;
         }
 
-        private void WriteNuspecFile(string savePath, string appPath)
+        private void WriteNuspecFile(string savePath, string appPath, string appName, 
+            string author, int majorVersion, SquirrelRelease latestRelease)
         {
+            string version = GenerateVersion(majorVersion, latestRelease);
+
             var doc = new XDocument(
                 new XElement("package",
                     new XElement("metadata",
-                        new XElement("id", "TestApp"),
-                        new XElement("version", "1.2.3.4"),
-                        new XElement("authors", "Peter"),
-                        new XElement("description", "A small test app"),
+                        new XElement("id", appName),
+                        new XElement("version", version),
+                        new XElement("authors", author),
+                        new XElement("description", appName),
                         new XElement("releaseNotes", "None")
                     ),
                     new XElement("files",
@@ -140,6 +156,22 @@ namespace SquirrelDeploy
             return nupkgFilePath != null ? 
                 Path.GetFullPath(nupkgFilePath) : 
                 null;
+        }
+
+        private string GenerateVersion(int majorVersion, SquirrelRelease latestRelease)
+        {
+            string datePart = DateTime.Today.ToString("yyMMdd");
+            int incrementPart = 1;
+
+            if (latestRelease != null)
+            {
+                if (latestRelease.VersionDatePart == datePart)
+                {
+                    incrementPart = latestRelease.VersionIncrementPart + 1;
+                }
+            }
+
+            return $"{majorVersion}.{datePart}.{incrementPart}";
         }
 
         private void InitTempDirectory()

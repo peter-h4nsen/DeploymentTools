@@ -32,7 +32,18 @@ namespace SquirrelDeploy
                 if (prop == null)
                     throw new InvalidOperationException($"Invalid argument: {arg}");
 
-                prop.SetValue(instance, value);
+                if (prop.PropertyType == typeof(int))
+                {
+                    int intValue;
+
+                    if (!int.TryParse(value, out intValue))
+                        throw new InvalidOperationException($"Invalid argument type. Integer expected: {arg}");
+
+                    prop.SetValue(instance, intValue);
+                }
+                else
+                    prop.SetValue(instance, value);
+
                 properties.Remove(prop);
             }
 

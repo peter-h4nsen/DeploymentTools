@@ -18,12 +18,15 @@ namespace SquirrelDeploy
                 logger.DestroyExisting();
 
                 Args arguments = new ArgumentParser().Parse<Args>(args);
+
                 var squirrelService = new SquirrelService(miscFunctions, arguments.SourceDir);
+                SquirrelRelease latestRelease = squirrelService.FindLatestRelease(arguments.ReleaseDir);
 
-                var nupkgFilePath = nugetService.GeneratePackage(
-                    arguments.SourceDir, arguments.ProjectName, arguments.Configuration);
+                string nupkgFilePath = nugetService.GeneratePackage(
+                    arguments.SourceDir, arguments.ProjectName, arguments.AppName, 
+                    arguments.Author, arguments.Configuration, arguments.MajorVersion, latestRelease);
 
-                squirrelService.Releasify(nupkgFilePath, arguments.OutputDir);
+                squirrelService.Releasify(nupkgFilePath, arguments.ReleaseDir);
 
                 return 0;
             }
