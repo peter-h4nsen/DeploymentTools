@@ -9,20 +9,28 @@ namespace SquirrelDeploy
 {
     public sealed class Logger
     {
-        private static readonly string filePath = @"errorlog.txt";
+        private readonly string _filePath;
+
+        public Logger(string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+                throw new ArgumentNullException(nameof(filePath));
+
+            _filePath = filePath;
+        }
 
         public void Write(string logMessage)
         {
             logMessage = $"{ DateTime.Now.ToString()}: {logMessage}";
-            File.AppendAllLines(filePath, new[] { logMessage });
+            File.AppendAllLines(_filePath, new[] { logMessage });
             Console.WriteLine(logMessage);
         }
 
         public void DestroyExisting()
         {
-            if (File.Exists(filePath))
+            if (File.Exists(_filePath))
             {
-                File.Delete(filePath);
+                File.Delete(_filePath);
             }
         }
     }

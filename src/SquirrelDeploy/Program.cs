@@ -7,9 +7,10 @@ namespace SquirrelDeploy
     {
         static int Main(string[] args)
         {
-            SetWorkingDirectory();
+            var exeLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            SetWorkingDirectory(exeLocation);
 
-            var logger = new Logger();
+            var logger = new Logger(GetLoggerFilename(exeLocation));
             var miscFunctions = new MiscFunctions();
             var nugetService = new NugetService(miscFunctions);
 
@@ -41,10 +42,16 @@ namespace SquirrelDeploy
             }
         }
 
-        private static void SetWorkingDirectory()
+        private static void SetWorkingDirectory(string exeLocation)
         {
-            var exeDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            var exeDirectory = Path.GetDirectoryName(exeLocation);
             Environment.CurrentDirectory = exeDirectory;
+        }
+
+        private static string GetLoggerFilename(string exeLocation)
+        {
+            var exeName = Path.GetFileNameWithoutExtension(exeLocation);
+            return $"{exeName}_errorlog.txt";
         }
     }
 }
