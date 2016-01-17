@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{8186E79B
 		tools\Before.AppName.sln.targets = tools\Before.AppName.sln.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitBot", "src\GitBot\GitBot.csproj", "{007D1CF3-B8B9-4BF9-AF39-BC5EA27F7929}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{5B0EC59F-A08A-4932-9AB7-3D954AB5D083}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B0EC59F-A08A-4932-9AB7-3D954AB5D083}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B0EC59F-A08A-4932-9AB7-3D954AB5D083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{007D1CF3-B8B9-4BF9-AF39-BC5EA27F7929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{007D1CF3-B8B9-4BF9-AF39-BC5EA27F7929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{007D1CF3-B8B9-4BF9-AF39-BC5EA27F7929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{007D1CF3-B8B9-4BF9-AF39-BC5EA27F7929}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
