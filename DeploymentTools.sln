@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{8186E79B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitBot", "src\GitBot\GitBot.csproj", "{007D1CF3-B8B9-4BF9-AF39-BC5EA27F7929}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostBuildTool", "src\PostBuildTool\PostBuildTool.csproj", "{29A083FD-E785-4D68-B971-48DA1F04C54F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{007D1CF3-B8B9-4BF9-AF39-BC5EA27F7929}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{007D1CF3-B8B9-4BF9-AF39-BC5EA27F7929}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{007D1CF3-B8B9-4BF9-AF39-BC5EA27F7929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29A083FD-E785-4D68-B971-48DA1F04C54F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29A083FD-E785-4D68-B971-48DA1F04C54F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29A083FD-E785-4D68-B971-48DA1F04C54F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29A083FD-E785-4D68-B971-48DA1F04C54F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
